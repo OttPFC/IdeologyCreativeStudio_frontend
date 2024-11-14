@@ -1,0 +1,40 @@
+.back-login {
+    background-color: brown;
+    height: 100vh;
+}
+
+
+.login-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border: black solid;
+}
+
+.image-login {
+    background-image: url("https://picsum.photos/seed/picsum/200/300");
+    background-size: cover;
+    width: 400px;
+    height: 500px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 10px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
