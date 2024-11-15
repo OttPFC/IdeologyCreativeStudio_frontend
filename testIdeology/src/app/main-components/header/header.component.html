@@ -1,14 +1,15 @@
-<div class="back-header">
+<div *ngIf="route !== '/'" class="back-header">
     <div class="container">
         <div class="utils">
             <div>
-                <a routerLink="" class="btn btn-outline-warning">Projects</a>
+                <a routerLink="/home" class="btn btn-outline-warning">Home</a>
+                <a  (click)="logout()">Sign out</a>
             </div>
             <div class="d-flex gap-2" >
-                <a routerLink="" class="btn btn-outline-warning">Download</a>
-                <a routerLink="" class="btn btn-outline-warning">Download</a>
-                <a routerLink="" class="btn btn-outline-warning">Download</a>
-                <a routerLink="" class="btn btn-outline-warning">Download</a>
+                <a routerLink="/home/task" class="btn btn-outline-warning">Task</a>
+                <a routerLink="/home/user" class="btn btn-outline-warning">Profile</a>
+                <a routerLink="/home/client" class="btn btn-outline-warning">Client</a>
+                <a routerLink="/home/projects" class="btn btn-outline-warning">Projects</a>
             </div>
         </div>
     </div>

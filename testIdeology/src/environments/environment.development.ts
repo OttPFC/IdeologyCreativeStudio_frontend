@@ -1,4 +1,5 @@
 export const environment = {
-    registerUrl:"http://localhost8080/users",
-    loginUrl:"http://localhost8080/login"
+    registerUrl:"http://localhost:8080/user",
+    loginUrl:"http://localhost:8080/user/login",
+    projectUrl:"http://localhost:8080/projects"
 };

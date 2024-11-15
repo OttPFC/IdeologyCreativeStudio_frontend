@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IRegisterUser } from '../model/register-user';
+import { IRegisterUser } from '../model/registered-user';
 import { environment } from '../../environments/environment.development';
 import { AuthService } from '../auth/auth.service';
 
@@ -12,7 +12,6 @@ export class UserService {
 
   private user = new BehaviorSubject<IRegisterUser[]>([]);
   user$ = this.user.asObservable();
-
   userUrl = environment.registerUrl;
 
   constructor(private http: HttpClient, private authService : AuthService) { }
@@ -30,7 +29,8 @@ export class UserService {
   }
 
   getUserById(id: number): Observable<IRegisterUser> {
-    return this.http.get<IRegisterUser>(`${this.userUrl}/${id}`, { headers: this.getAuthHeaders() });
+    return this.http.get<IRegisterUser>(`${this.userUrl}/${id}`, 
+      { headers: this.getAuthHeaders() });
   }
 
   searchUsersByName(firstName: string): Observable<IRegisterUser[]> {

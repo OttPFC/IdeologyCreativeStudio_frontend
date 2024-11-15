@@ -1,6 +1,7 @@
-import { IUser } from "./user";
+import { IRegisterUser } from "./registered-user";
 
-export interface Project {
+
+export interface IProject {
     id: number;
     title: string;
     description: string;
@@ -8,6 +9,6 @@ export interface Project {
     startDate: Date;
     endDate: Date;
     status: string;
-    author: IUser;
-    users: IUser[];
+    author: IRegisterUser;
+    users: IRegisterUser[];
 }

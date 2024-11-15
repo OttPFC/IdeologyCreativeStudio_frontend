@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { IRegisterUser } from '../model/register-user';
+import { IRegisterUser } from '../model/registered-user';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ILoginUser } from '../model/login-user';
 import { environment } from '../../environments/environment.development';
+
 type AccessData = {
   user: IRegisterUser,
   accessToken: string
@@ -38,6 +39,7 @@ export class AuthService {
   getUser(): Observable<IRegisterUser | null> {
     return this.user$;
   }
+  
   login(loginData: ILoginUser): Observable<AccessData> {
     return this.http.post<AccessData>(this.loginUrl, loginData)
       .pipe(tap(data => {
@@ -62,14 +64,17 @@ export class AuthService {
 
   logout() {
     this.userSubj.next(null);
+    console.log('User logged out', this.userSubj);
     localStorage.removeItem('accessData');
-    this.router.navigate(['']);
+    console.log('User logged out', localStorage);
+    this.router.navigate(['/']);
   }
 
   getAccessToken(): string {
     const userJson = localStorage.getItem('accessData');
-    if (!userJson) return ''
+    if (!userJson) return '';
     const accessData: AccessData = JSON.parse(userJson);
+    console.log(accessData)
     if (this.jwtHelper.isTokenExpired(accessData.accessToken)) return '';
     return accessData.accessToken;
   }
@@ -107,4 +112,11 @@ export class AuthService {
       console.log('Invalid accessData in localStorage');
     }
   }
+
+  isAdmin(): Observable<boolean> {
+    return this.user$.pipe(
+      map(user => user?.role === 'ADMIN') 
+    );
+  }
+  
 }
