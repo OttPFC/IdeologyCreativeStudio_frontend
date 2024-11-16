@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import iziToast from 'izitoast';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,12 @@ export class AdminGuard {
         if (isAdmin) {
           return true;
         } else {
-          this.router.navigate(['/']); 
+          iziToast.error({
+            title: 'Error',
+            message: 'You don\'t have permission, contact you administrator',
+            position: 'bottomCenter'
+          });
+          this.router.navigate(['/home']); 
           return false;
         }
       })

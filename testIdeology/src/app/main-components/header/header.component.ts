@@ -11,6 +11,8 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  isSidebarOpen = false;
   isLoggedIn: boolean = false;
   route: string = '';
   user: IRegisterUser | undefined;
@@ -29,7 +31,8 @@ export class HeaderComponent implements OnInit {
     this.authSvc.isLoggedIn$.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
     });
-    
+    this.loadUser();
+    console.log(this.user?.firstName)
   }
   loadUser() {
     this.authSvc.user$.subscribe({
@@ -56,14 +59,19 @@ export class HeaderComponent implements OnInit {
     });
   }
   logout(){
+    const userName = this.user?.firstName || 'Guest';
     this.authSvc.logout();
     iziToast.success({
       title: 'Logout',
-      message: 'See you traveler',
+      message: `See you ${userName}`,
       position: 'bottomCenter'
     });
     setTimeout(() => {
       this.router.navigate(['']);
     }, 1000);
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 }

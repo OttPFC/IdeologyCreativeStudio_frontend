@@ -1,3 +1,5 @@
+import { IRole } from "./role";
+
 export interface IRegisterUser {
     id : number;
     firstName:string;
@@ -5,6 +7,7 @@ export interface IRegisterUser {
     username:string;
     email:string;
     password?:string;
-    role:string
+    role:string,
+    roles:IRole[];
     enabled: boolean;
 }

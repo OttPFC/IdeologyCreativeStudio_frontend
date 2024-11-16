@@ -1,3 +1,8 @@
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "San Francisco", Helvetica, Arial, sans-serif;
+font-weight:  300; 
+margin:  0; 
+}
 $primary: rgb(182, 157, 230);
 
 .rule {
@@ -216,6 +221,18 @@ $displacement: 3px;
     width: auto;
     margin: 20px;
   }
+}
+
+.gr{
+  width: 50px;
+  height: auto;
+  min-height: 100%;
+  font-size: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 /*

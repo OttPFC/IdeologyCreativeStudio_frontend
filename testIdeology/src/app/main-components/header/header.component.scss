@@ -8,3 +8,48 @@
     justify-content: space-between;
     align-items: center;
 }
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;  
+    height: 100%;
+    width: 280px;
+    background-color: #343a40;
+    transition: left 0.3s ease; 
+    z-index: 1000;
+  }
+  
+  
+  .sidebar-open {
+    left: 0;
+  }
+  
+  
+  .page-content {
+    margin-left: 280px;
+    transition: margin-left 0.3s ease;
+  }
+  .sidebar {
+    z-index: 1000; 
+  }
+    
+  .butt{
+    z-index: 999;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  font-size: 25px;
+  }
+  
+  .butt2{
+    z-index: 999;
+    top: 20px;
+    left: 20px;
+  font-size: 25px;
+  }
+
+  .space{
+    height: 70vh;
+  }

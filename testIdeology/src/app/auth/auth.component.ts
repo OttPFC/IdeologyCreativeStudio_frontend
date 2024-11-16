@@ -31,7 +31,7 @@ export class AuthComponent {
         console.log(data);
         iziToast.success({
           title: 'Success',
-          message: 'Welcome traveler',
+          message: `Welcome ${data.user.firstName}`,
           position: 'bottomCenter'
         });
         setTimeout(() => {
