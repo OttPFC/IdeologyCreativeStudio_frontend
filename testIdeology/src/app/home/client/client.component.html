@@ -1,3 +1,4 @@
+<!-- client.component.html -->
 <div class="card">
   <div class="table-title">
     <h2>CLIENTS LIST</h2>
@@ -45,6 +46,15 @@
           <td>
             <input type="checkbox" />
           </td>
+          <td>
+            <button 
+              [routerLink]="['/backOffice/updateClient']" 
+              [queryParams]="{ id: c.id }" 
+              class="btn btn-outline-warning">
+              View
+            </button>
+          </td>
+          
           <td>{{c.id}}</td>
           <td>{{c.name}}</td>
           <td>{{c.note}}</td>

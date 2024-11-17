@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   user: IRegisterUser | undefined;
   users: IRegisterUser[] = [];
   errorMessage: string | null = null;
+  isAdmin: boolean = false;
   constructor(
     private authSvc: AuthService,
     private router: Router,
@@ -33,20 +34,22 @@ export class HeaderComponent implements OnInit {
     });
     this.loadUser();
     console.log(this.user?.firstName)
+
   }
   loadUser() {
     this.authSvc.user$.subscribe({
       next: (user) => {
         this.user = user || undefined;
-        if (this.user) {
-          this.getUser(this.user.id);
-        }
       },
-      error: (err) => {
+      error: () => {
         this.errorMessage = 'Errore nel caricamento dell\'utente';
       }
     });
+    this.authSvc.isAdmin().subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    });
   }
+  
 
   getUser(id: number) {
     this.usrSvc.getUserById(id).subscribe({

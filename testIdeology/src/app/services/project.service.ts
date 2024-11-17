@@ -46,5 +46,8 @@ export class ProjectService {
     return this.http.delete<void>(`${this.projectUrl}/${id}`, { headers: this.getAuthHeaders() });
   }
 
-
+  addUserToProject(projectId: number, userId: number): Observable<any> {
+    return this.http.post<any>(`${this.projectUrl}/${projectId}/users/${userId}`, {}, { headers: this.getAuthHeaders() });
+  }
+  
 }

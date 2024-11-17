@@ -1,1 +1,50 @@
-<p>user-back-office works!</p>
+<div>
+    <div class="container mt-5">
+        <div class="border border-3 p-3">
+            <form class="row g-3" (ngSubmit)="register()">
+                <div class="col-md-4">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input [(ngModel)]="registerData.firstName" type="text" class="form-control" id="firstName"
+                        name="firstName" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input [(ngModel)]="registerData.lastName" type="text" class="form-control" id="lastName"
+                        name="lastName" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="inputEmail4" class="form-label">Email</label>
+                    <input [(ngModel)]="registerData.email" type="email" class="form-control" id="inputEmail4"
+                        name="email" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="inputPassword4" class="form-label">Password</label>
+                    <input [(ngModel)]="registerData.password" type="password" class="form-control" id="inputPassword4"
+                        name="password" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="username" class="form-label">Username</label>
+                    <input [(ngModel)]="registerData.username" type="text" class="form-control" id="username"
+                        name="username" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="inputState" class="form-label">Role</label>
+                    <select id="inputState" class="form-select" [(ngModel)]="registerData.role" name="role" multiple required>
+                        <option value="USER" selected>USER</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
+                        <option value="IT DEVELOPER">IT DEVELOPER</option>
+                        <option value="PRODUCTION">PRODUCTION</option>
+                        <option value="SUPERVISOR">SUPERVISOR</option>
+                        <option value="TEST">TEST</option>
+                    </select>
+                </div>
+
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

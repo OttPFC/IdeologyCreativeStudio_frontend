@@ -6,6 +6,7 @@ import { ProjectBackOfficeComponent } from './project-back-office/project-back-o
 import { ClientBackOfficeComponent } from './client-back-office/client-back-office.component';
 import { TasksBackOfficeComponent } from './tasks-back-office/tasks-back-office.component';
 import { LogBackOfficeComponent } from './log-back-office/log-back-office.component';
+import { ClientUpdateComponent } from './client-back-office/client-update/client-update.component';
 
 const routes: Routes = [
   { path: '', component: BackOfficeComponent },
@@ -23,6 +24,9 @@ const routes: Routes = [
   },
   {
     path:"log", component: LogBackOfficeComponent
+  },
+  {
+    path: "updateClient", component: ClientUpdateComponent
   }
 ];
 

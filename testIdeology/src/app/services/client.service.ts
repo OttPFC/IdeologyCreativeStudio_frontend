@@ -11,8 +11,7 @@ import { IClient } from '../model/client';
 })
 export class ClientService {
 
-  private user = new BehaviorSubject<IRegisterUser[]>([]);
-  user$ = this.user.asObservable();
+  
   userUrl = environment.clientUrl;
   constructor(private http: HttpClient, private authService : AuthService) { }
 
@@ -29,31 +28,28 @@ export class ClientService {
     );
   }
   
+  getClientById(id: number): Observable<IClient> {
+    return this.http.get<IClient>(`${this.userUrl}/${id}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
 
-  
-  getClientById(id: number): Observable<IRegisterUser> {
-    return this.http.get<IRegisterUser>(`${this.userUrl}/${id}`, {
+  searchClientsByName(name: string): Observable<IClient[]> {
+    return this.http.get<IClient[]>(`${this.userUrl}/search?name=${name}`, {
       headers: this.getAuthHeaders()
     });
   }
 
   
-  searchClientsByName(name: string): Observable<IRegisterUser[]> {
-    return this.http.get<IRegisterUser[]>(`${this.userUrl}/search?name=${name}`, {
+  addClient(client: Partial<IClient>): Observable<IClient> {
+    return this.http.post<IClient>(this.userUrl, client, {
       headers: this.getAuthHeaders()
     });
   }
 
   
-  addClient(client: Partial<IRegisterUser>): Observable<IRegisterUser> {
-    return this.http.post<IRegisterUser>(this.userUrl, client, {
-      headers: this.getAuthHeaders()
-    });
-  }
-
-  
-  updateClient(id: number, client: Partial<IRegisterUser>): Observable<IRegisterUser> {
-    return this.http.put<IRegisterUser>(`${this.userUrl}/${id}`, client, {
+  updateClient(id: number, client: Partial<IClient>): Observable<IClient> {
+    return this.http.put<IClient>(`${this.userUrl}/${id}`, client, {
       headers: this.getAuthHeaders()
     });
   }

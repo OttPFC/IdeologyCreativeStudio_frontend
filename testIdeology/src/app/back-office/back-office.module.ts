@@ -8,6 +8,8 @@ import { ProjectBackOfficeComponent } from './project-back-office/project-back-o
 import { ClientBackOfficeComponent } from './client-back-office/client-back-office.component';
 import { TasksBackOfficeComponent } from './tasks-back-office/tasks-back-office.component';
 import { LogBackOfficeComponent } from './log-back-office/log-back-office.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ClientUpdateComponent } from './client-back-office/client-update/client-update.component';
 
 
 @NgModule({
@@ -17,11 +19,14 @@ import { LogBackOfficeComponent } from './log-back-office/log-back-office.compon
     ProjectBackOfficeComponent,
     ClientBackOfficeComponent,
     TasksBackOfficeComponent,
-    LogBackOfficeComponent
+    LogBackOfficeComponent,
+    ClientUpdateComponent
   ],
   imports: [
     CommonModule,
-    BackOfficeRoutingModule
+    BackOfficeRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class BackOfficeModule { }

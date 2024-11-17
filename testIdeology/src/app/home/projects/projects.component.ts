@@ -23,7 +23,8 @@ export class ProjectsComponent {
 
     ngOnInit(): void {
       this.loadUser();
-      this.getAllProjects(0, 10);
+      this.getAllProjects(0, 100);
+      console.log(this.project)
     }
 
     getUser(id: number) {

@@ -1,1 +1,51 @@
-<p>project-back-office works!</p>
+<div>
+    <div class="container mt-5">
+        <div class="border border-3 p-3">
+            <form class="row g-3" (ngSubmit)="createProject()">
+                <!-- Altri campi del progetto -->
+                <div class="col-md-6">
+                    <label for="title" class="form-label">Project Title</label>
+                    <input [(ngModel)]="newProject2.title" type="text" class="form-control" id="title"
+                        name="title" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea [(ngModel)]="newProject2.description" class="form-control" id="description"
+                        name="description" rows="3" required></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input [(ngModel)]="newProject2.startDate" type="date" class="form-control" id="startDate"
+                        name="startDate" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input [(ngModel)]="newProject2.endDate" type="date" class="form-control" id="endDate"
+                        name="endDate" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="status" class="form-label">Status</label>
+                    <select [(ngModel)]="newProject2.status" class="form-select" id="status" name="status" required>
+                        <option value="IN_PROGRESS">In Progress</option>
+                        <option value="COMPLETED">Completed</option>
+                        <option value="NOT_COMPLETED">Not Completed</option>
+                    </select>
+                </div>
+
+                Selezione degli utenti tramite checkbox
+                  <div class="col-12">
+                    <label for="users" class="form-label">Assign Users</label>
+                    <div *ngFor="let user of availableUsers">
+                        <input type="checkbox" [(ngModel)]="user.selected" name="user-{{user.id}}" [value]="user.id" />
+                        {{ user.firstName }} {{ user.lastName }}
+                    </div>
+                </div>
+               
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Create Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
