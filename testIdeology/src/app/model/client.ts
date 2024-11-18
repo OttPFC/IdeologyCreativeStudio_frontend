@@ -11,5 +11,6 @@ export interface IClient {
     createDate: Date;
     lastModifiedDate: Date;
     createBy:IUser
+    selected?: boolean
  }
 

@@ -1,40 +1,39 @@
-<!-- client.component.html -->
 <div class="card">
   <div class="table-title">
     <h2>CLIENTS LIST</h2>
   </div>
-  <div class="button-container"><span></span>
-    <button class="danger" title="Delete Selected">
+  <div class="button-container">
+    <span></span>
+    <button class="danger" title="Delete Selected" (click)="deleteSelectedClients()">
       <svg viewBox="0 0 448 512" width="16" title="trash-alt">
-        <path
-          d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z">
-        </path>
+        <path d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path>
       </svg>
     </button>
-    <button class="primary" title="Add New Data">
+    <button class="primary" title="Add New Data" routerLink="/backOffice/clients">
       <svg viewBox="0 0 512 512" width="16" title="plus-circle">
-        <path
-          d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z">
-        </path>
+        <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"></path>
       </svg>
     </button>
   </div>
+  
   <div class="table-concept">
     <input class="table-radio" type="radio" name="table_radio" id="table_radio_0" checked="checked" />
     <div class="table-display">
-      Showing {{ (currentPage * pageSize) + 1 }} to
-      {{ (currentPage + 1) * pageSize < totalElements ? (currentPage + 1) * pageSize : totalElements }} of {{
-        totalElements }} items </div>
+      Showing {{ (currentPage * pageSize) + 1 }} to {{ (currentPage + 1) * pageSize < totalElements ? (currentPage + 1) * pageSize : totalElements }} of {{ totalElements }} items
+    </div>
     
     <table>
       <thead>
         <tr>
+          <th>
+            <input type="checkbox" [checked]="isAllSelected()" (change)="toggleSelectAll($event)" />
+          </th>
           <th></th>
           <th>ID</th>
           <th>NAME</th>
           <th>NOTE</th>
           <th>EMAIL</th>
-          <th>PHONE </th>
+          <th>PHONE</th>
           <th>ADDRESS</th>
           <th>ENABLED</th>
           <th>CREATE AT</th>
@@ -44,57 +43,38 @@
       <tbody>
         <tr *ngFor="let c of client">
           <td>
-            <input type="checkbox" />
+            <input type="checkbox" [checked]="isClientSelected(c.id)" (change)="toggleClientSelection(c.id)" />
           </td>
           <td>
-            <button 
-              [routerLink]="['/backOffice/updateClient']" 
-              [queryParams]="{ id: c.id }" 
-              class="btn btn-outline-warning">
+            <button [routerLink]="['/backOffice/updateClient']" [queryParams]="{ id: c.id }" class="btn btn-outline-warning">
               View
             </button>
           </td>
-          
-          <td>{{c.id}}</td>
-          <td>{{c.name}}</td>
-          <td>{{c.note}}</td>
-          <td>{{c.email}}</td>
-          <td>{{c.phone}}</td>
-          <td>{{c.address}}</td>
-          <td>{{c.enabled}}</td>
-          <td>{{c.createDate}}</td>
-          <td>{{c.createBy.firstName}} {{c.createBy.lastName}}</td>
+          <td>{{ c.id }}</td>
+          <td>{{ c.name }}</td>
+          <td>{{ c.note }}</td>
+          <td>{{ c.email }}</td>
+          <td>{{ c.phone }}</td>
+          <td>{{ c.address }}</td>
+          <td>{{ c.enabled }}</td>
+          <td>{{ c.createDate }}</td>
+          <td>{{ c.createBy.firstName }} {{ c.createBy.lastName }}</td>
         </tr>
-
-
       </tbody>
     </table>
 
     <div class="pagination">
-      <label 
-        [class.disabled]="currentPage === 0" 
-        (click)="changePage(currentPage - 1)" 
-        *ngIf="currentPage > 0">
+      <label [class.disabled]="currentPage === 0" (click)="changePage(currentPage - 1)" *ngIf="currentPage > 0">
         &laquo; Previous
       </label>
       
-      <label 
-        *ngFor="let page of [].constructor(totalPages); let i = index" 
-        [class.active]="currentPage === i" 
-        [attr.id]="'table_pager_' + i" 
-        (click)="changePage(i)">
+      <label *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i" (click)="changePage(i)">
         {{ i + 1 }}
       </label>
       
-      <label 
-        [class.disabled]="currentPage >= totalPages - 1" 
-        (click)="changePage(currentPage + 1)" 
-        *ngIf="currentPage < totalPages - 1">
+      <label [class.disabled]="currentPage >= totalPages - 1" (click)="changePage(currentPage + 1)" *ngIf="currentPage < totalPages - 1">
         Next &raquo;
       </label>
     </div>
-    
-    
-    
-  
-    
+  </div>
+</div>

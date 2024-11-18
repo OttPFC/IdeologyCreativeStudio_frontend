@@ -12,7 +12,7 @@ import { IClient } from '../model/client';
 export class ClientService {
 
   
-  userUrl = environment.clientUrl;
+  clientUrl = environment.clientUrl;
   constructor(private http: HttpClient, private authService : AuthService) { }
 
   private getAuthHeaders(): HttpHeaders{
@@ -23,41 +23,46 @@ export class ClientService {
   }
   getAllClients(page: number, size: number): Observable<{ content: IClient[], totalPages: number, totalElements: number }> {
     return this.http.get<{ content: IClient[], totalPages: number, totalElements: number }>(
-      `${this.userUrl}?page=${page}&size=${size}`,
+      `${this.clientUrl}?page=${page}&size=${size}`,
       { headers: this.getAuthHeaders() }
     );
   }
   
   getClientById(id: number): Observable<IClient> {
-    return this.http.get<IClient>(`${this.userUrl}/${id}`, {
+    return this.http.get<IClient>(`${this.clientUrl}/${id}`, {
       headers: this.getAuthHeaders()
     });
   }
 
   searchClientsByName(name: string): Observable<IClient[]> {
-    return this.http.get<IClient[]>(`${this.userUrl}/search?name=${name}`, {
+    return this.http.get<IClient[]>(`${this.clientUrl}/search?name=${name}`, {
       headers: this.getAuthHeaders()
     });
   }
 
   
   addClient(client: Partial<IClient>): Observable<IClient> {
-    return this.http.post<IClient>(this.userUrl, client, {
+    return this.http.post<IClient>(this.clientUrl, client, {
       headers: this.getAuthHeaders()
     });
   }
 
   
   updateClient(id: number, client: Partial<IClient>): Observable<IClient> {
-    return this.http.put<IClient>(`${this.userUrl}/${id}`, client, {
+    return this.http.put<IClient>(`${this.clientUrl}/${id}`, client, {
       headers: this.getAuthHeaders()
     });
   }
 
   
   deleteClient(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.userUrl}/${id}`, {
+    return this.http.delete<void>(`${this.clientUrl}/${id}`, {
       headers: this.getAuthHeaders()
     });
   }
+
+  deleteMultipleClients(ids: number[]): Observable<void> {
+    return this.http.delete<void>(`${this.clientUrl}/delete-multiple`, {headers: this.getAuthHeaders(), body: ids });
+  }
+  
 }
