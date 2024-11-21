@@ -79,7 +79,7 @@ export class UserdetailsComponent {
             position: 'bottomCenter'
           });
           setTimeout(() => {
-            window.location.reload();;
+            window.location.reload();
           }, 2000);
         },
         error: (error) => {

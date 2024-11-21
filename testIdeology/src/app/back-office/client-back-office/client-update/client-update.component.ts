@@ -22,10 +22,10 @@ export class ClientUpdateComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.clientForm = this.fb.group({
-      name: ['', [Validators.minLength(3)]],
-      email: ['', [Validators.email]],
-      phone: ['', [Validators.pattern('^[0-9]{10}$')]],
-      address: ['', [Validators.minLength(5)]],
+      name: ['',Validators.required],
+      email: ['',Validators.required],
+      phone: ['',Validators.required],
+      address: ['',Validators.required],
       note: ['']
     });
   }
@@ -43,6 +43,7 @@ export class ClientUpdateComponent implements OnInit {
     this.clientSvc.getClientById(clientId).subscribe({
       next: (client) => {
         this.client = client;
+        this.clientForm.patchValue(client);
         console.log('Client received:', client);
       },
       error: (err) => {
@@ -52,6 +53,7 @@ export class ClientUpdateComponent implements OnInit {
   }
 
   updateClient() {
+    console.log('Update client')
     if (this.clientForm.valid && this.client) {
       const updatedClient = { ...this.client, ...this.clientForm.value };
       this.clientSvc.updateClient(this.client.id, updatedClient).subscribe({
@@ -71,6 +73,9 @@ export class ClientUpdateComponent implements OnInit {
           this.errorMessage = 'Errore durante l\'aggiornamento dell\'utente';
         }
       });
+    }else{
+      console.log(this.clientForm)
+      console.log(this.client)
     }
   }
   

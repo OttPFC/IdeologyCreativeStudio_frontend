@@ -58,6 +58,23 @@ getAllProjects(page: number, pageSize: number){
     next: (projects) => {
       console.log("Projects received: ", projects)
       this.project = projects;
+      
+    },
+    error: (error) => {
+      this.errorMessage = 'Errore nel recupero dei progetti';
+    }
+  });
+}
+
+getAllProjectsByAuthor(page: number, pageSize: number){
+  this.projectSvc.getAllProjects(page, pageSize).subscribe({
+    next: (projects) => {
+      console.log("Projects received: ", projects)
+      this.project = projects;
+      this.users = projects.map(p => p.author).filter((user, index, self) =>
+        self.indexOf(user) === index
+      );
+      
     },
     error: (error) => {
       this.errorMessage = 'Errore nel recupero dei progetti';

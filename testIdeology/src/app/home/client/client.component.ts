@@ -5,6 +5,7 @@ import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../../services/user.service';
 import { ClientService } from '../../services/client.service';
 import iziToast from 'izitoast';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-client',
@@ -111,9 +112,25 @@ export class ClientComponent {
 
   deleteSelectedClients(): void {
     const selectedIds = Array.from(this.selectedClients);
-
-    if (selectedIds.length > 0) {
-      if (window.confirm('Are you sure you want to delete the selected clients?')) {
+    if (selectedIds.length === 0) {
+      iziToast.warning({
+        title: 'Warning',
+        message: 'No clients selected for deletion.',
+        position: 'bottomCenter'
+      });
+      return; 
+    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete them!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.isLoading = true; 
         this.clientSvc.deleteMultipleClients(selectedIds).subscribe({
           next: () => {
             iziToast.success({
@@ -121,23 +138,23 @@ export class ClientComponent {
               message: 'Selected clients have been deleted.',
               position: 'bottomCenter'
             });
-            this.getAllClients();
+            this.selectedClients.clear(); 
+            this.getAllClients(); 
           },
           error: (error) => {
+            console.error('Error during deletion:', error);
             iziToast.error({
               title: 'Error',
               message: 'Failed to delete selected clients.',
               position: 'bottomCenter'
             });
+          },
+          complete: () => {
+            this.isLoading = false; 
           }
         });
       }
-    } else {
-      iziToast.warning({
-        title: 'Warning',
-        message: 'No clients selected for deletion.',
-        position: 'bottomCenter'
-      });
-    }
+    });
   }
+  
 }
